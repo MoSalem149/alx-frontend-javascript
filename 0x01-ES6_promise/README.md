@@ -1,104 +1,586 @@
-# 0x01. ES6 Promises
+0x01. ES6 Promises
+==================
 
-## Description:bulb:
+JavaScriptES6
 
-One simply does not use async/await without knowing promises!
+-   By Johann Kerbrat, Engineering Manager at Uber Works
 
-- Promises (how, why, and what)
-- How to use the `then`, `resolve`, `catch` methods
-- How to use every method of the Promise object
-- Throw / Try
-- The await operator
-- How to use an `async` function
+![](https://s3.amazonaws.com/alx-intranet.hbtn.io/uploads/medias/2019/12/75862d67ca51a042003c.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUSBVO6H7D%2F20220622%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220622T115226Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=914e3eb0cf483e5f34e1c50919bf2af0a0b4934b8840833ec03881dd31d834ea)
 
-## Technologies & Tools:computer:
+Resources
+---------
 
-[![Jest](https://img.shields.io/badge/≡-Jest-C21325?logo=Jest&style=flat-square&labelColor=282828&logoColor=C21325)](https://jestjs.io/)
-[![Git](https://img.shields.io/badge/≡-Git-F05032?logo=git&style=flat-square&labelColor=282828)](https://git-scm.com/)
-[![Ubuntu](https://img.shields.io/badge/≡-Ubuntu-E95420?&style=flat-square&logo=Ubuntu&labelColor=282828)](https://ubuntu.com/)
-[![Babel](https://img.shields.io/badge/≡-Babel-F9DC3E?logo=Babel&style=flat-square&labelColor=282828)](https://babeljs.io/)
-[![JavaScript](https://img.shields.io/badge/≡-JavaScript-F7DF1E?logo=javascript&style=flat-square&labelColor=282828)](https://developer.mozilla.org/en-US/docs/Web/javascript)
-[![GNU_Bash](https://img.shields.io/badge/≡-GNU_Bash-4EAA25?logo=GNU-Bash&style=flat-square&labelColor=282828)](https://www.gnu.org/software/bash/)
-[![Nodejs](https://img.shields.io/badge/≡-Nodejs-339933?logo=Node.js&style=flat-square&labelColor=282828)](https://nodejs.org/en/)
-[![Vim](https://img.shields.io/badge/≡-Vim-019733?logo=Vim&style=flat-square&logoColor=019733&labelColor=282828)](https://www.vim.org/)
-[![Vagrant](https://img.shields.io/badge/≡-Vagrant-1563FF?logo=vagrant&style=flat-square&logoColor=1563FF&labelColor=282828)](https://www.vagrantup.com/)
-[![VS_Code](https://img.shields.io/badge/≡-VS_Code-007ACC?logo=visual-studio-code&style=flat-square&logoColor=007ACC&labelColor=282828)](https://code.visualstudio.com/)
-[![ESLint](https://img.shields.io/badge/≡-ESLint-4B32C3?logo=ESLint&style=flat-square&labelColor=282828&logoColor=4B32C3)](https://eslint.org/)
-[![GitHub](https://img.shields.io/badge/≡-GitHub-181717?logo=GitHub&style=flat-square&labelColor=282828)](https://github.com/)
+**Read or watch**:
 
----
+-   [Promise](https://alx-intranet.hbtn.io/rltoken/j_0FTFbkTg42JMcAbNPOVQ "Promise")
+-   [JavaScript Promise: An introduction](https://alx-intranet.hbtn.io/rltoken/2Q2LzNFokcUwpA2u3FKG6Q "JavaScript Promise: An introduction")
+-   [Await](https://alx-intranet.hbtn.io/rltoken/UXb3S2PMBe-SLJ55isMcow "Await")
+-   [Async](https://alx-intranet.hbtn.io/rltoken/_K0C7pgEjwaIzU9RpwCb8g "Async")
+-   [Throw / Try](https://alx-intranet.hbtn.io/rltoken/UTjDgvKk5l892Xslh0vqcQ "Throw / Try")
 
-## Resources:books:
+Learning Objectives
+-------------------
 
-Read or watch:
+At the end of this project, you are expected to be able to [explain to anyone](https://alx-intranet.hbtn.io/rltoken/Z4xW7_BFaRcrHxfDySjKuQ "explain to anyone"), **without the help of Google**:
 
-- [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-- [JavaScript Promise: An introduction](https://web.dev/promises/)
-- [Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
-- [Async](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
-- [Throw / Try](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw)
+-   Promises (how, why, and what)
+-   How to use the `then`, `resolve`, `catch` methods
+-   How to use every method of the Promise object
+-   Throw / Try
+-   The await operator
+-   How to use an `async` function
 
----
+Requirements
+------------
 
-## Requirements:hammer:
+-   All your files will be executed on Ubuntu 18.04 LTS using NodeJS 12.11.x
+-   Allowed editors: `vi`, `vim`, `emacs`, `Visual Studio Code`
+-   All your files should end with a new line
+-   A `README.md` file, at the root of the folder of the project, is mandatory
+-   Your code should use the `js` extension
+-   Your code will be tested using `Jest` and the command `npm run test`
+-   Your code will be verified against lint using ESLint
+-   All of your functions must be exported
 
-- Ubuntu 18.04 LTS using NodeJS 12.22.x
-- Jest Testing Framework
-- ESLint
+Setup
+-----
 
-### Install NodeJS 12.22.x
+### Install NodeJS 12.11.x
 
-```console
-foo@pop-os:~$ curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
-foo@pop-os:~$ sudo bash nodesource_setup.sh
-foo@pop-os:~$ sudo apt install nodejs -y
+(in your home directory):
+
+```
+curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+sudo apt install nodejs -y
+
 ```
 
-### Check version
+```
+$ nodejs -v
+v12.11.1
+$ npm -v
+6.11.3
 
-```console
-foo@pop-os:~$ nodejs -v
-v12.22.1
-foo@pop-os:~$ npm -v
-6.14.12
 ```
 
 ### Install Jest, Babel, and ESLint
 
-```console
-foo@pop-os:~$ npm install --save-dev jest
-foo@pop-os:~$ npm install --save-dev babel-jest @babel/core @babel/preset-env
-foo@pop-os:~$ npm install --save-dev eslint
+in your project directory:
+
+-   Install Jest using: `npm install --save-dev jest`
+-   Install Babel using: `npm install --save-dev babel-jest @babel/core @babel/preset-env @babel/cli`
+-   Install ESLint using: `npm install --save-dev eslint`
+
+Files
+-----
+
+### `package.json`
+
+Click to show/hide file contents
+
+### `babel.config.js`
+
+Click to show/hide file contents
+
+### `utils.js`
+
+Use when you get to tasks requiring `uploadPhoto` and `createUser`.
+
+Click to show/hide file contents
+
+### `.eslintrc.js`
+
+Click to show/hide file contents
+
+### and...
+
+Don't forget to run `$ npm install` when you have the `package.json`
+
+Response Data Format
+--------------------
+
+`uploadPhoto` returns a response with the format
+
+```
+{
+  status: 200,
+  body: 'photo-profile-1',
+}
+
 ```
 
----
+`createUser` returns a response with the format
 
-## Files:card_file_box:
+```
+{
+  firstName: 'Guillaume',
+  lastName: 'Salva',
+}
 
-### [0. Keep every promise you make and only make promises you can keep](./0-promise.js)
+```
 
-### [1. Don't make a promise...if you know you can't keep it](./1-promise.js)
+Tasks
+-----
 
-### [2. Catch me if you can!](./2-then.js)
+### 0\. Keep every promise you make and only make promises you can keep
 
-### [3. Handle multiple successful promises](./3-all.js)
+mandatory
 
-### [4. Simple promise](./4-user-promise.js)
 
-### [5. Reject the promises](./5-photo-reject.js)
+Return a Promise using this prototype `function getResponseFromAPI()`
 
-### [6. Handle multiple promises](./6-final-user.js)
+```
+bob@dylan:~$ cat 0-main.js
+import getResponseFromAPI from "./0-promise.js";
 
-### [7. Load balancer](./7-load_balancer.js)
+const response = getResponseFromAPI();
+console.log(response instanceof Promise);
 
-### [8. Throw error / try catch](./8-try.js)
+bob@dylan:~$
+bob@dylan:~$ npm run dev 0-main.js
+true
+bob@dylan:~$
 
-### [9. Throw an error](./9-try.js)
+```
 
-### [10. Await / Async](./100-await.js)
+**Repo:**
 
----
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `0-promise.js`
 
-## Author
+### 1\. Don't make a promise...if you know you can't keep it
 
-- **Mohamed Salem** - [MoSalem149](https://github.com/MoSalem149)
+mandatory
+
+
+Using the prototype below, return a `promise`. The parameter is a `boolean`.
+
+```
+getFullResponseFromAPI(success)
+
+```
+
+When the argument is:
+
+-   `true`
+    -   resolve the promise by passing an object with 2 attributes:
+        -   `status`: `200`
+        -   `body`: `'Success'`
+-   `false`
+    -   reject the promise with an error object with the message `The fake API is not working currently`
+
+Try testing it out for yourself
+
+```
+bob@dylan:~$ cat 1-main.js
+import getFullResponseFromAPI from './1-promise';
+
+console.log(getFullResponseFromAPI(true));
+console.log(getFullResponseFromAPI(false));
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 1-main.js
+Promise { { status: 200, body: 'Success' } }
+Promise {
+  <rejected> Error: The fake API is not working currently
+    ...
+    ...
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `1-promise.js`
+
+### 2\. Catch me if you can!
+
+mandatory
+
+
+Using the function prototype below
+
+```
+function handleResponseFromAPI(promise)
+
+```
+
+Append three handlers to the function:
+
+-   When the Promise resolves, return an object with the following attributes
+    -   `status`: `200`
+    -   `body`: `success`
+-   When the Promise rejects, return an empty `Error` object
+-   For every resolution, log `Got a response from the API` to the console
+
+```
+bob@dylan:~$ cat 2-main.js
+import handleResponseFromAPI from "./2-then";
+
+const promise = Promise.resolve();
+handleResponseFromAPI(promise);
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 2-main.js
+Got a response from the API
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `2-then.js`
+
+### 3\. Handle multiple successful promises
+
+mandatory
+
+
+In this file, import `uploadPhoto` and `createUser` from `utils.js`
+
+Knowing that the functions in `utils.js` return promises, use the prototype below to collectively resolve all promises and log `body firstName lastName` to the console.
+
+```
+function handleProfileSignup()
+
+```
+
+In the event of an error, log `Signup system offline` to the console
+
+```
+bob@dylan:~$ cat 3-main.js
+import handleProfileSignup from "./3-all";
+
+handleProfileSignup();
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 3-main.js
+photo-profile-1 Guillaume Salva
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `3-all.js`
+
+### 4\. Simple promise
+
+mandatory
+
+
+Using the following prototype
+
+```
+function signUpUser(firstName, lastName) {
+}
+
+```
+
+That returns a resolved promise with this object:
+
+```
+{
+  firstName: value,
+  lastName: value,
+}
+
+```
+
+```
+bob@dylan:~$ cat 4-main.js
+import signUpUser from "./4-user-promise";
+
+console.log(signUpUser("Bob", "Dylan"));
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 4-main.js
+Promise { { firstName: 'Bob', lastName: 'Dylan' } }
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `4-user-promise.js`
+
+### 5\. Reject the promises
+
+mandatory
+
+
+Write and export a function named `uploadPhoto`. It should accept one argument `fileName` (string).
+
+The function should return a Promise rejecting with an Error and the string `$fileName cannot be processed`
+
+```
+export default function uploadPhoto(filename) {
+
+}
+
+```
+
+```
+bob@dylan:~$ cat 5-main.js
+import uploadPhoto from './5-photo-reject';
+
+console.log(uploadPhoto('guillaume.jpg'));
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 5-main.js
+Promise {
+  <rejected> Error: guillaume.jpg cannot be processed
+  ..
+    ..
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `5-photo-reject.js`
+
+### 6\. Handle multiple promises
+
+mandatory
+
+
+Import `signUpUser` from `4-user-promise.js` and `uploadPhoto` from `5-photo-reject.js`.
+
+Write and export a function named `handleProfileSignup`. It should accept three arguments `firstName` (string), `lastName` (string), and `fileName` (string). The function should call the two other functions. When the promises are all settled it should return an array with the following structure:
+
+```
+[
+    {
+      status: status_of_the_promise,
+      value: value or error returned by the Promise
+    },
+    ...
+  ]
+
+```
+
+```
+bob@dylan:~$ cat 6-main.js
+import handleProfileSignup from './6-final-user';
+
+console.log(handleProfileSignup("Bob", "Dylan", "bob_dylan.jpg"));
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 6-main.js
+Promise { <pending> }
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `6-final-user.js`
+
+### 7\. Load balancer
+
+mandatory
+
+
+Write and export a function named `loadBalancer`. It should accept two arguments `chinaDownload` (Promise) and `USDownload` (Promise).
+
+The function should return the value returned by the promise that resolved the first.
+
+```
+export default function loadBalancer(chinaDownload, USDownload) {
+
+}
+
+```
+
+```
+bob@dylan:~$ cat 7-main.js
+import loadBalancer from "./7-load_balancer";
+
+const ukSuccess = 'Downloading from UK is faster';
+const frSuccess = 'Downloading from FR is faster';
+
+const promiseUK = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 100, ukSuccess);
+});
+
+const promiseUKSlow = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 400, ukSuccess);
+});
+
+const promiseFR = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 200, frSuccess);
+});
+
+const test = async () => {
+    console.log(await loadBalancer(promiseUK, promiseFR));
+    console.log(await loadBalancer(promiseUKSlow, promiseFR));
+}
+
+test();
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 7-main.js
+Downloading from UK is faster
+Downloading from FR is faster
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `7-load_balancer.js`
+
+### 8\. Throw error / try catch
+
+mandatory
+
+
+Write a function named `divideFunction` that will accept two arguments: `numerator` (Number) and `denominator` (Number).
+
+When the `denominator` argument is equal to 0, the function should throw a new error with the message `cannot divide by 0`. Otherwise it should return the numerator divided by the denominator.
+
+```
+export default function divideFunction(numerator, denominator) {
+
+}
+
+```
+
+```
+bob@dylan:~$ cat 8-main.js
+import divideFunction from './8-try';
+
+console.log(divideFunction(10, 2));
+console.log(divideFunction(10, 0));
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 8-main.js
+5
+..../8-try.js:15
+  throw Error('cannot divide by 0');
+  ^
+.....
+
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `8-try.js`
+
+### 9\. Throw an error
+
+mandatory
+
+
+Write a function named `guardrail` that will accept one argument `mathFunction` (Function).
+
+This function should create and return an array named `queue`.
+
+When the `mathFunction` function is executed, the value returned by the function should be appended to the queue. If this function throws an error, the error message should be appended to the queue. In every case, the message `Guardrail was processed` should be added to the queue.
+
+Example:
+
+```
+[
+  1000,
+  'Guardrail was processed',
+]
+
+```
+
+```
+bob@dylan:~$ cat 9-main.js
+import guardrail from './9-try';
+import divideFunction from './8-try';
+
+console.log(guardrail(() => { return divideFunction(10, 2)}));
+console.log(guardrail(() => { return divideFunction(10, 0)}));
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 9-main.js
+[ 5, 'Guardrail was processed' ]
+[ 'Error: cannot divide by 0', 'Guardrail was processed' ]
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `9-try.js`
+
+### 10\. Await / Async
+
+#advanced
+
+
+Import `uploadPhoto` and `createUser` from `utils.js`
+
+Write an async function named `asyncUploadUser` that will call these two functions and return an object with the following format:
+
+```
+{
+  photo: response_from_uploadPhoto_function,
+  user: response_from_createUser_function,
+}
+
+```
+
+If one of the async function fails, return an empty object. Example:
+
+```
+{
+  photo: null,
+  user: null,
+}
+
+```
+
+```
+bob@dylan:~$ cat 100-main.js
+import asyncUploadUser from "./100-await";
+
+const test = async () => {
+    const value = await asyncUploadUser();
+    console.log(value);
+};
+
+test();
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 100-main.js
+{
+  photo: { status: 200, body: 'photo-profile-1' },
+  user: { firstName: 'Guillaume', lastName: 'Salva' }
+}
+bob@dylan:~$
+
+```
+
+**Repo:**
+
+-   GitHub repository: `alx-backend-javascript`
+-   Directory: `0x01-ES6_promise`
+-   File: `100-await.js`
